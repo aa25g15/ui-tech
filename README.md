@@ -1,9 +1,13 @@
 # UI Tech
 
 ## Frontend Security
+* SSL - Secure Sockets Layer - An encryption technique used to safeguard the communication between the server and the client, without it, sensitive information is subject to theft. This is pretty much a standard requirement now.
+* Cross Site Scripting
 
 ## Web and Browser Fundamentals
-### What happens when you type a website in your browser?
+### Explain the entire process (what actually happens in backend) starting from sending request from client to server and then back to client.
+
+### Event Loop and How Promises and setTimeout are Queued
 
 ## HTML
 ### What is Charset Meta Tag?
@@ -54,16 +58,38 @@ button {
 }
 ```
 
+### Specificity
+
 ### Box Model
 <img src="box-model.png" alt="box model" width="400"/>
 
 ## JavaScript
 * Remember JS is a synchronous single-threaded language but the browser event-loop and promises makes it exhibit async functionality
 * Synchronous means that the code is executed in the sequence in which it is written, waiting for the previous instruction to finish executing
+* Remeber that JS is not static typed but dynamically which means that a variable is not attached to a particular data type, you can do this in JS:
+```javascript
+const a = "Abhinav";
+a = 12; // No error
+```
 
 ### Data Types
-* Strings
-  * Remember strings are immutable in JS!!!!!!! I have made this silly mistake before too, if they were not then any hacker could alter them and change references causing security breaches.
+* Primitive - Can store only 1 type at a time
+  * number - Integers and floating points both
+    * infinity and NaN are special type of numbers
+  * big int - When numbers are not enough, rarely needed
+  * string
+    * Remember strings are immutable in JS!!!!!!! I have made this silly mistake before too, if they were not then any hacker could alter them and change references causing security breaches.
+    * There is practically no difference between single and double quotes in JS
+    * Backticks however allow us to define template strings with variables inside strings such as:
+    ```javascript
+    const info = `${name} is ${age} years old`;
+    ```
+  * boolean - true or false
+  * null - Means a value is not known
+  * undefined - Means a variable has been declared but its value has not been defined yet
+    * null and undefined are different in this sense that null is still an assigned value, it is just that the value is unknown
+* objects - Can store collection of data and more complex entities
+* symbols - Are used to create unique identifiers for objects (probably not that important)
 
 ### Difference between var, let and const
 * var
@@ -113,6 +139,9 @@ button {
   * You cannot access let and cost variables before they are declared, you will get ReferenceError
 
 ### Promises, callbacks, async, await
+* How does javascript figures out that a promise is resolved?
+* Promise chaining
+* Implement Promise.all
 
 ### Function call, bind, apply
 
@@ -187,7 +216,18 @@ const throttle = (func, time = 200) => { // ms
 }
 ```
 
+### Memoization
+
 ### Destructuring in JS
+
+### Polyfill for bind method
+```javascript
+
+```
+
+### Implement own eventmanager
+
+### Implement own redux like lib
 
 ### Difference Between Arrow Functions and Normal Functions
 * The this keyword in an arrow function points to its lexical scope but in a normal function, it points to the function's object
