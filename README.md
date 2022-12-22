@@ -4,7 +4,6 @@
 
 ## Web and Browser Fundamentals
 ### What happens when you type a website in your browser?
-* 
 
 ## HTML
 ### What is Charset Meta Tag?
@@ -56,6 +55,7 @@ button {
 ```
 
 ### Box Model
+<img src="box-model.png" alt="box model" width="400"/>
 
 ## JavaScript
 * Remember JS is a synchronous single-threaded language but the browser event-loop and promises makes it exhibit async functionality
