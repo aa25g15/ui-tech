@@ -54,9 +54,13 @@ button {
 }
 ```
 
-## JavaScript - Deep JS Concepts
+## JavaScript
 * Remember JS is a synchronous single-threaded language but the browser event-loop and promises makes it exhibit async functionality
 * Synchronous means that the code is executed in the sequence in which it is written, waiting for the previous instruction to finish executing
+
+### Data Types
+* Strings
+  * Remember strings are immutable in JS!!!!!!! I have made this silly mistake before too, if they were not then any hacker could alter them and change references causing security breaches
 
 ### Promises, callbacks, async, await
 
@@ -65,6 +69,30 @@ button {
 ### Currying
 
 ### Hoisting
+* In hoisting, it appears that the interpretor moves the declarations of functions, classes and variables to the top of their scope before executing the code such that their value or declaration is accessible before the line at which they are defined.
+* There are 3 types of hoisting:
+  1. Value hoisting - The value of the declaration is accessible before it is actually declared. This is true for functions, generator functions, async functions and async generator functions.
+  ```javascript
+  calc(5,10); // Will log 15
+
+  function calc(a,b) {
+    console.log(a + b);
+  }
+
+  // Note - If you use const calc = () => {}, this will throw referenceError
+  ```
+  2. Declaration hoisting - The declaration is accessible before it is actually declared although its value is always undefined. This is true for "var" declarations.
+  ```javascript
+  console.log(a); // Output - undefined
+
+  var a = 10;
+  ```
+  3. When a hoisted declarations taints the scope in which it is declared such that accessing it before it is declared throws a ReferenceError - This is true for const, let and class. You cannot access variables declared with const and let and classes before they are declared in their scope.
+  ```javascript
+  const dog = new Dog(); // ReferenceError
+
+  class Dog {}
+  ```
 
 ### Closures
 * Functions form closures in JS through which the variables available in their lexical scope are available to the functions themselves.
