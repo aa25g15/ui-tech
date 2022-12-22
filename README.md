@@ -55,6 +55,8 @@ button {
 }
 ```
 
+### Box Model
+
 ## JavaScript
 * Remember JS is a synchronous single-threaded language but the browser event-loop and promises makes it exhibit async functionality
 * Synchronous means that the code is executed in the sequence in which it is written, waiting for the previous instruction to finish executing
@@ -144,12 +146,48 @@ button {
 
 ### Closures
 * Functions form closures in JS through which the variables available in their lexical scope are available to the functions themselves.
+```javascript
+const name = "Abhinav";
+
+function printName(){
+  console.log(name);
+}
+
+printName(); // Output - Abhinav
+```
 
 ### Debounce
 * Debounce is a technique through which multiple function calls are combined to a single call. The target function is called only after a certain time has passed after the last call was made. Its common applications include a search bar.
+```javascript
+const debounce = (func, time = 200) => { // ms
+  let timerId;
+  return (...args) => { // Rest operator - Collects values and puts them in an array
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      func.apply(this, args);
+    }, time);
+  }
+}
+```
 
 ### Throttle
 * Throttle is a technique by which the target function is called at a certain rate only. The target function is called and then a certain time must pass after this before it is allowed to be called again.
+```javascript
+const throttle = (func, time = 200) => { // ms
+  let timerId;
+  return (...args) => {
+    if(!timerId){
+      // timer is cleared, we can call function
+      func.apply(this, args);
+      timerId = setTimeout(() => {
+        timerId = null;
+      }, time)
+    }
+  }
+}
+```
+
+### Destructuring in JS
 
 ### Difference Between Arrow Functions and Normal Functions
 * The this keyword in an arrow function points to its lexical scope but in a normal function, it points to the function's object
