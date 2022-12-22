@@ -2,8 +2,9 @@
 
 ## Frontend Security
 
-## Web Fundamentals
-### What happens when you 
+## Web and Browser Fundamentals
+### What happens when you type a website in your browser?
+* 
 
 ## HTML
 
@@ -54,7 +55,8 @@ button {
 ```
 
 ## JavaScript - Deep JS Concepts
-* Remember JS is a synchronous single-threaded language but the browser event queue makes it exhibit async functionality
+* Remember JS is a synchronous single-threaded language but the browser event-loop and promises makes it exhibit async functionality
+* Synchronous means that the code is executed in the sequence in which it is written, waiting for the previous instruction to finish executing
 
 ### Promises, callbacks, async, await
 
@@ -83,4 +85,4 @@ button {
 * Each process has code, data, files
   * For a multi-threaded process, each thread does a different task but these threads can run concurrently increasing efficiency and responsiveness of the app
   * The code, data and files are shared between threads which saves system resources and is economical
-![threads](threads.png)
+<img src="threads.png" alt="threads" width="400"/>
