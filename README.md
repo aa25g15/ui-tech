@@ -222,7 +222,13 @@ const throttle = (func, time = 200) => { // ms
 
 ### Polyfill for bind method
 ```javascript
-
+Function.prototype.myBind = function(...args){
+  const obj = this;
+  const params = args.slice(1);
+  return function(...args2) {
+    obj.apply(args[0], [...params, ...args2]);
+  }
+}
 ```
 
 ### Implement own eventmanager
