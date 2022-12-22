@@ -155,7 +155,16 @@ button {
 * The this keyword in an arrow function points to its lexical scope but in a normal function, it points to the function's object
 
 ### Difference between Typescript & Javascript
-
+* As the popularity of JS grew from client side to server side it could not fulfill the enterprise level requirement of OOPs
+* As a solution to it, a superset of JS, called TS was introduced
+* TS is an OOPS programming language while JS is a prototype based language
+* TS supports static typing and strong typing but JS does not
+* TS supports interfaces and JS does not
+* All this helps point out errors during development (pre-compile stage) which reduces chances of errors during runtime
+* Also, it provides intellisense in IDEs such as VS Code which makes development a lot easier and consistent
+* TS makes code more maintainable and scalable
+* All JS code is compatible with TS and TS can use JS packages 
+* TS is trans-piled to JS and for compatibility with older browsers, compilers like Babel can be used
 
 ## OS
 ### Threads
