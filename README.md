@@ -166,6 +166,45 @@ button {
 * All JS code is compatible with TS and TS can use JS packages 
 * TS is trans-piled to JS and for compatibility with older browsers, compilers like Babel can be used
 
+### Prototype and Prototypal Inheritance
+* Forget about how inheritance works in other languages as the way it works in JS is a whole new concept
+* Inheritance still means the same thing i.e. that one object is able to access the properties and methods of other object
+* Whenever we create a function/array/object/{almost anything} in JS, the JS engine attaches a new object to the object of your declaration
+* This new object has some hidden properties and methods which are now available to the object you just created without you ever defining them
+* This new attached object is called the prototype of your object
+```javascript
+const arr = ["abhinav", "oreo"];
+console.log(arr.__proto__); // Same as Array.prototype which is also an object
+console.log(arr.__proto__.__proto__); // Same as Object.prototype which is also an object
+console.log(arr.__proto__.__proto__.__proto__); // null - End of the prototype chain
+```
+* This is called the prototype chain, the Array.prototype has its own methods and parameters such as push() etc. and it inherits the methods and parameters of Object.prototype too which further has null prototype
+* This is why it is called that everything in JS is actually an object as anything you create besides primitive types inherit the Object.prototype
+* The reason why it is written like __proto__ is so that you do not accidentally alter it, it is just a naming convention
+* A function will have Function.prototype which has Object.prototype
+* How can one object inherit the properties and methods of another object by using its prototype?
+```javascript
+const obj1 = {
+  name: "abhinav",
+  city: "amritsar",
+  getInfo: function(){
+    console.log(this.name + " is from " + this.city);
+  }
+}
+
+const obj2 = {
+  name: "rahul",
+}
+
+// NEVER DO THIS - ONLY FOR DEMONSTRATION
+obj2.__proto__ = obj1;
+
+console.log(obj2.name) // rahul
+console.log(obj1.name) // abhinav
+console.log(obj2.city) // amritsar - will try to find city on the object itself, if not found will look in prototype and so on...
+console.log(obj2.getInfo()) // rahul is from amritsar - Note that now 'this' points to obj2 in the function getInfo
+```
+
 ## OS
 ### Threads
 * An application has multiple processes, those processes can then either be single threaded or multi-threaded.
