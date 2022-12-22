@@ -154,6 +154,9 @@ button {
 ### Difference Between Arrow Functions and Normal Functions
 * The this keyword in an arrow function points to its lexical scope but in a normal function, it points to the function's object
 
+### Difference between Typescript & Javascript
+
+
 ## OS
 ### Threads
 * An application has multiple processes, those processes can then either be single threaded or multi-threaded.
@@ -162,3 +165,25 @@ button {
   * For a multi-threaded process, each thread does a different task but these threads can run concurrently increasing efficiency and responsiveness of the app
   * The code, data and files are shared between threads which saves system resources and is economical
 <img src="threads.png" alt="threads" width="400"/>
+
+## OOPS
+* What I learned in university was procedural programming in which variables and functions are decoupled and variables are on one side and functions operate on those variables and are interdependent on each other.
+* This creates a spaghetti code problem where there is so much interdependence that altering one functions breaks multiple others.
+* OOPs comes to rescue!
+* 4 pillars of OOPS:
+  * Encapsulation - Related variables (parameters) and methods that operate on them are combined into a single unit called an Object
+    * Reduces complexity
+    * Reduces number of parameters needed for methods (less the better)
+    * Increases reusability
+    * Eg - localStorage object in browser
+  * Astraction - When we have combined these parameters and methods into a single unit, there is no need for everyone to know exactly what complicated stuff is going on inside the unit as a whole. Several methods and parameters can be hidden from outside access.
+    * Reduces complexity since unnecessary information is not available (imagine a DVD player, do you care what happens inside it?)
+    * Reduces impact of change as now less things are exposed and so the rest of the code is less dependent on the object as a whole
+  * Inheritance - Classes defining objects can inherit the properties and methods of other classes which reduces unnecessary code
+    * Reduces unnecessary code - The DRY principle
+    * Reduces complexity
+    * Increases maintainability
+    * Eg - All elements in the DOM inherit the HTMLElement class and thus implement all the methods defined in that class
+  * Polymorphism - Poly means many and morph means form. This technique helps reduce unnecessary and complicated if else and switch statements.
+    * The same method will behave differently depending on the object being referenced
+    * Imagine HTMLElements such as Select, Radio, Checkbox. They all will render differently. Without polymorphism, you would need complicated switch statements to handle each type of element but with polymorphism, you can write element.render() and render will behave differently based on which type of element is being referenced.
