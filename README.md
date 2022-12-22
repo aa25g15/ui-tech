@@ -83,3 +83,4 @@ button {
 * Each process has code, data, files
   * For a multi-threaded process, each thread does a different task but these threads can run concurrently increasing efficiency and responsiveness of the app
   * The code, data and files are shared between threads which saves system resources and is economical
+![threads](threads.png)
