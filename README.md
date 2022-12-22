@@ -7,6 +7,7 @@
 * 
 
 ## HTML
+### What is Charset Meta Tag?
 
 ### Semantic HTML
 
@@ -60,7 +61,53 @@ button {
 
 ### Data Types
 * Strings
-  * Remember strings are immutable in JS!!!!!!! I have made this silly mistake before too, if they were not then any hacker could alter them and change references causing security breaches
+  * Remember strings are immutable in JS!!!!!!! I have made this silly mistake before too, if they were not then any hacker could alter them and change references causing security breaches.
+
+### Difference between var, let and const
+* var
+  * Var is either global scoped or function scoped, if declared outside function, it is global scoped, if declared inside function, it is function scoped and it will not be accessible outside that function
+  * var can be used to redelcare the same variable!
+  * Variables declared using var can be reassigned
+  * Variables declared with var can be accessed in their scope before they are declared although the value is always undefined (hoisting)
+* let and const
+  * Both are block scoped and cannot be accessed outside the block
+  ```javascript
+  let a = 10;
+    function f() {
+        if (true) {
+            let b = 9
+ 
+            // It prints 9
+            console.log(b);
+        }
+ 
+        // It gives error as it
+        // defined in if block
+        console.log(b);
+    }
+    f()
+ 
+    // It prints 10
+    console.log(a)
+  ```
+  * But as they are only block scoped, you can declare same variable name in different blocks using let and const - DO NOT GET CONFUSED HERE!
+  ```javascript
+  let a = 10
+  if (true) {
+    let a = 9
+    console.log(a) // It prints 9
+  }
+  console.log(a) // It prints 10
+  ```
+  * Let variables can be reassigned but const cannot, however for const objects we can alter object property values but not the properties themselves, we can even add properties! Again do not confused here.
+  ```javascript
+  const dog = {
+  	name: "oreo"
+  }
+  dog.age = 12;
+
+  console.log(dog); // age will be added as a property
+  ```
 
 ### Promises, callbacks, async, await
 
