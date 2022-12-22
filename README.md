@@ -108,6 +108,7 @@ button {
 
   console.log(dog); // age will be added as a property
   ```
+  * You cannot access let and cost variables before they are declared, you will get ReferenceError
 
 ### Promises, callbacks, async, await
 
