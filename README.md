@@ -181,9 +181,34 @@ boundedFunc("India"); // Output - Abhinav is from Amritsar and Punjab and India
 * Currying is a concept where a function is broken down into smaller functions each of which takes one argument and returns a function which waits for the second argument and so on till all arguments are provided.
 * It is a way to make sure that we have everything beforehand
 * So with currying - func(a, b, c) will be split into func(a)(b)(c)
-* There can be 2 ways of creating a curried function
-  * Closures
-  * bind method
+* There can be 2 ways of creating a curried function:
+* Closures:
+```javascript
+const sum = (a,b,c) => console.log(a + b + c);
+
+const cs = (a) => {
+	return (b) => {
+		return (c) => {
+			console.log(a + b + c);
+		}
+	}
+}
+
+cs(1)(2)(3);
+```
+* bind method:
+```javascript
+const add = (a, b, c) => a+b+c
+
+// Implement curriedSum such that all invokations to cs should return answer as 9
+// Gave a hint: fn.length gives no of arguments that function takes . eg: in our case add.length = 3
+// const cs = curriedSum(add);
+// cs(2)(3, 4) 
+// cs(2, 3, 4)
+// cs(2, 3)(4)
+
+```
+* Another question related to currying
 
 ### Hoisting
 * In hoisting, it appears that the interpretor moves the declarations of functions, classes and variables to the top of their scope before executing the code such that their value or declaration is accessible before the line at which they are defined.
@@ -255,6 +280,8 @@ const throttle = (func, time = 200) => { // ms
 ```
 
 ### Memoization
+
+### The this Keyword
 
 ### Destructuring in JS
 
