@@ -71,6 +71,14 @@ button {
 const a = "Abhinav";
 a = 12; // No error
 ```
+* Remember you can pass excessive arguments to functions in JS and it will not throw and error unlike other languages such as Java
+```javascript
+function printName(first, last){
+	console.log(first + " " + last);
+}
+
+printName("Rahul", "Chabra", "Friend"); // no error, output - Rahul Chabra
+```
 
 ### Data Types
 * Primitive - Can store only 1 type at a time
@@ -144,8 +152,38 @@ a = 12; // No error
 * Implement Promise.all
 
 ### Function call, bind, apply
+```javascript
+const printInfo = function(state, country){
+  console.log(this.name + " is from " + this.city + " and " + state + " and " + country);
+}
+
+const person1 = {
+  name: "Abhinav"
+  city: "Amritsar"
+}
+
+const person2 = {
+  name: "Rahul"
+  city: "Chandigarh"
+}
+
+printInfo.call(person1, "Punjab", "India"); // Output - Abhinav is from Amritsar and Punjab and India
+printInfo.apply(person1, ["Punjab", "India"]); // Output - Abhinav is from Amritsar and Punjab and India
+
+const boundedFunc = printInfo.bind(person1, "Punjab");
+boundedFunc("India"); // Output - Abhinav is from Amritsar and Punjab and India
+```
+* call is used to invoke a function with a given context to which "this" points to and function arguments are passed as comma separated values
+* apply is the SAME as call, the only difference is that in apply, function arguments are passed as an array
+* bind returns a function which has its "this" pointing towards the provided scope, additional function parameters can be passed as comma separated values which will be passed to the bounded function on invoking it. All arguments need not be there when doing a bind. Rest of them can be passed in the bounded function upon invoking it. See above code.
 
 ### Currying
+* Currying is a concept where a function is broken down into smaller functions each of which takes one argument and returns a function which waits for the second argument and so on till all arguments are provided.
+* It is a way to make sure that we have everything beforehand
+* So with currying - func(a, b, c) will be split into func(a)(b)(c)
+* There can be 2 ways of creating a curried function
+  * Closures
+  * bind method
 
 ### Hoisting
 * In hoisting, it appears that the interpretor moves the declarations of functions, classes and variables to the top of their scope before executing the code such that their value or declaration is accessible before the line at which they are defined.
@@ -266,6 +304,7 @@ console.log(arr.__proto__.__proto__.__proto__); // null - End of the prototype c
 * This is why it is called that everything in JS is actually an object as anything you create besides primitive types inherit the Object.prototype
 * The reason why it is written like __proto__ is so that you do not accidentally alter it, it is just a naming convention
 * A function will have Function.prototype which has Object.prototype
+* A string will have String.prototype which has Object.prototype
 * How can one object inherit the properties and methods of another object by using its prototype?
 ```javascript
 const obj1 = {
