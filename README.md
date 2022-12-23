@@ -6,6 +6,7 @@
 
 ## Web and Browser Fundamentals
 ### Explain the entire process (what actually happens in backend) starting from sending request from client to server and then back to client.
+* https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work
 
 ### Event Loop and How Promises and setTimeout are Queued
 
@@ -150,6 +151,8 @@ printName("Rahul", "Chabra", "Friend"); // no error, output - Rahul Chabra
 * How does javascript figures out that a promise is resolved?
 * Promise chaining
 * Implement Promise.all
+* Implement an array of promises in parallel
+* Implement an array of promises one after the other
 
 ### Function call, bind, apply
 ```javascript
@@ -247,6 +250,7 @@ function printName(){
 
 printName(); // Output - Abhinav
 ```
+* How does closures work?
 
 ### Debounce
 * Debounce is a technique through which multiple function calls are combined to a single call. The target function is called only after a certain time has passed after the last call was made. Its common applications include a search bar.
