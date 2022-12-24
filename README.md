@@ -487,6 +487,22 @@ Array.prototype.myReduceRight = function(func, initialVal){
 }
 ```
 
+### Pollyfill for find method
+```javascript
+Array.prototype.myFind = function(func){
+	let res = null;
+	const arr = this;
+	// linear search
+	for(let i = 0; i < arr.length; i++){
+		if(arr[i] !== null && arr[i] !== undefined && func.apply(this, [arr[i]])){
+			res = arr[i];
+			break; // Only return first instance
+		}
+	}
+	return res;
+}
+```
+
 ### Difference Between ES5 and ES6
 * ES5 was released in 2009 and ES6 in 2015
 * ES6 is a major improvement on ES5 with features such as:
