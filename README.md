@@ -452,12 +452,28 @@ console.log(mappedArr);
 console.log(filteredArr);
 ```
 
-### Polyfill for reduce method
+### Polyfill for reduce method and reduceRight method
 ```javascript
 Array.prototype.myReduce = function(func, initialVal){
 	let res = initialVal ?? null;
 	const arr = this;
 	for(let i = 0; i < arr.length; i++){
+		if(arr[i] !== null && arr[i] !== undefined){
+			if(res === null){
+				res = arr[i];
+				continue;
+			}
+			res = func.apply(this, [res, arr[i]]);
+		}
+	}
+	return res;
+}
+
+Array.prototype.myReduceRight = function(func, initialVal){
+	let res = initialVal ?? null;
+	const arr = this;
+	
+	for(let i = arr.length - 1; i >= 0; i--){ // From right to left
 		if(arr[i] !== null && arr[i] !== undefined){
 			if(res === null){
 				res = arr[i];
