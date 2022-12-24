@@ -2,7 +2,11 @@
 
 ## Frontend Security
 * SSL - Secure Sockets Layer - An encryption technique used to safeguard the communication between the server and the client, without it, sensitive information is subject to theft. This is pretty much a standard requirement now.
-* Cross Site Scripting
+* Cross Site Scripting (XSS)
+* CSRF
+* Clickjacking
+* CSP - Content Security Policies
+* CORS - Cross Origin Resource Sharing
 
 ## Web and Browser Fundamentals
 ### Explain the entire process (what actually happens in backend) starting from sending request from client to server and then back to client.
@@ -407,6 +411,62 @@ Function.prototype.myBind = function(...args){
   return function(...args2) {
     obj.apply(args[0], [...params, ...args2]);
   }
+}
+```
+
+### Polyfill for map and filter method
+```javascript
+Array.prototype.myMap = function(func) {
+	const res = [];
+	const arr = this;
+	for(let i = 0; i < arr.length; i++){
+		if(arr[i] !== null && arr[i] !== undefined){
+			res.push(func.apply(this, [arr[i], i]));
+		}
+	}
+	return res;
+}
+
+Array.prototype.myFilter = function(func){
+	const res = [];
+	const arr = this;
+	for(let i = 0; i < arr.length; i++){
+		if(arr[i] !== null && arr[i] !== undefined && func.apply(this, [arr[i], i])){
+			res.push(arr[i]);
+		}
+	}
+	return res;
+}
+
+const arr = [2, 3, 5, 44, 33, 64];
+
+const mappedArr = arr.myMap((num, index) => {
+	return num * index;
+});
+
+const filteredArr = arr.myFilter((num, index) => {
+	return (index + 1) % 2 == 0; // array of even places
+});
+
+console.log(mappedArr);
+console.log(filteredArr);
+```
+
+### Polyfill for reduce method
+```javascript
+Array.prototype.myReduce = function(func, initialVal){
+	let res = initialVal ?? null;
+	const arr = this;
+	for(let i = 0; i < arr.length; i++){
+		if(arr[i] !== null && arr[i] !== undefined){
+			if(res === null){
+				res = arr[i];
+				continue;
+			}
+			res = func.apply(this, [res, arr[i]]);
+		}
+	}
+	return res;
 }
 ```
 
