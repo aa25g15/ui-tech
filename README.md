@@ -221,6 +221,11 @@ boundedFunc("India"); // Output - Abhinav is from Amritsar and Punjab and India
 * apply is the SAME as call, the only difference is that in apply, function arguments are passed as an array
 * bind returns a function which has its "this" pointing towards the provided scope, additional function parameters can be passed as comma separated values which will be passed to the bounded function on invoking it. All arguments need not be there when doing a bind. Rest of them can be passed in the bounded function upon invoking it. See above code.
 
+### Dynamic Dispatch
+* Just a fancy term which means calling methods on objects, the origin of this term is from older languages where calling methods on objects was called as sending messages to the object
+* In JS we say Dynamic dispatch cause when we call the method, for example, obj.method(), the engine does not know exactly which function in memory to call, it has to first search the right function and might have to look down the prototype chain
+* In some other lower level languages such as C++, static dispatch is found as the program knows exactly which function to call in memory
+
 ### Currying
 * Currying is a concept where a function is broken down into smaller functions each of which takes one argument and returns a function which waits for the second argument and so on till all arguments are provided.
 * It is a way to make sure that we have everything beforehand
@@ -317,7 +322,7 @@ function printName(){
 
 printName(); // Output - Abhinav
 ```
-* How does closures work?
+* How do closures work?
 
 ### Debounce
 * Debounce is a technique through which multiple function calls are combined to a single call. The target function is called only after a certain time has passed after the last call was made. Its common applications include a search bar.
@@ -351,6 +356,36 @@ const throttle = (func, time = 200) => { // ms
 ```
 
 ### Memoization
+* A technique used to store computed results in a cache (temporary data store such as a Map) so that they can be retrieved and returned instead of doing a fresh calculation everytime
+```javascript
+const memoize = (func) => {
+	const map = new Map();  // Cache
+
+	return (...args) => {
+		const stringified = JSON.stringify(args);
+    
+		if(map.has(stringified)){
+			// We have already computed this result
+			console.log("From cache");
+			return map.get(stringified);
+		}
+		const result = func.apply(this, args);
+		map.set(stringified, result);
+		return result;
+	}
+}
+
+const sum = (a, b, c) => a + b + c;
+
+const memoizedSum = memoize(sum);
+
+console.log(memoizedSum(10, 20, 30));
+console.log(memoizedSum(9, 312, 45));
+console.log(memoizedSum(8, 756, 43));
+console.log(memoizedSum(10, 20, 30)); // From cache
+console.log(memoizedSum(9, 312, 30));
+console.log(memoizedSum(9, 312, 45)); // From Cache
+```
 
 ### The this Keyword
 
