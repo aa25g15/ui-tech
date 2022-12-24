@@ -11,6 +11,34 @@
 ### Event Loop and How Promises and setTimeout are Queued
 
 ### Web Performance
+* Key Web Performance Metrics (Can calculate them from tools such as lighthouse)
+	* Cummulative Layout Shift (CLS) - How much the layout shifts until the render is complete 
+		* If images load and move elements around them for example, this can lead to a bad CLS score, you should always set height and width on image elements on their containers
+	* Largest Contentful Paint (LCP) - Time to load the largest asset
+		* Use next generation formats such as webp
+		* Compress asset size
+		* Preload LCP asset
+	* Time to Interactive (TTI) - The point in time when the long task has finished (tasks that occupy the UI thread for 50ms or more) followed by a 5 second period of network and main thread inactivity. It helps identify scenarios where a page might appear interactive but actually isn't cause the resources needed to respond to user interaction adequately have not been loaded.
+		* Preconnect to required origins
+		* Reduce main thread work
+		* Minify JS
+		* Preload critical requests
+		* Keep request count low and transfer sizes small
+		* Reduce JS execution time
+		* Reduce the impact of third party code
+	* Total Blocking Time (TBT) - The total time the render process is blocked due to for example, loading of scripts etc.
+		* Use defer on scripts or move them at the end of the body tag
+		* async and defer are different - async will start loading the script and execute it as soon as it is loaded, defer will start loading the script but will not execute it before the render is complete, also deferred scripts are executed in the order in which they appear in document
+	* First Contentful Paint (FCP) - The time taken for for the user to see ANY content on the browser
+		* This can be improved using a preloader which shows much before your LCP
+		* Inline critical CSS
+		* Improve server response time - TTFB (Time to first byte)
+		* Avoid script based elements above the fold
+		* Avoid lazy loading images above the fold
+		* Ensure text remains visible during webfont load
+			* Browsers might not show any font until all font files are loaded, this can cause FLash of Invisible Text (FOIT), to prevent this add font-display: swap in your font-face or &display=swap if loading from a CDN such as google fonts. This will show a system font until your fonts load.
+		* Eliminate render blocking resources
+	* Speed Index - The speed at which above the fold content visually loads
 
 ### Service workers and web workers
 
@@ -19,7 +47,7 @@
 
 ### Semantic HTML
 
-### Accesibility
+### Accessibility
 
 ## CSS
 ### Position Property
@@ -321,7 +349,21 @@ Function.prototype.myBind = function(...args){
 ### Difference Between ES5 and ES6
 * ES5 was released in 2009 and ES6 in 2015
 * ES6 is a major improvement on ES5 with features such as:
-* classes, arrow functions, let, const, better performance
+	* Classes
+	* Arrow functions
+	* Let, const
+	* Better performance
+	* Template literals
+	* Object literals
+	* Generator functions
+	* Modules
+	* Promises
+	* Rest and spread operators
+	* Destructuring
+	* Default parameters
+	* And a lot more...
+
+### Modules in JS
 
 ### Classes - This is an ES6 Feature
 ```javascript
