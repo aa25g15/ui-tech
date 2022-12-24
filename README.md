@@ -85,6 +85,10 @@ function printName(first, last){
 printName("Rahul", "Chabra", "Friend"); // no error, output - Rahul Chabra
 ```
 
+### Some general things to remember
+* array.slice(start, end) // Will return a new array without modifying the original, end is non-inclusive
+* array.splice(index, howmany, item1, ....., itemX) // modifies the original array, itemN are items to be added
+
 ### Data Types
 * Primitive - Can store only 1 type at a time
   * number - Integers and floating points both
@@ -93,7 +97,7 @@ printName("Rahul", "Chabra", "Friend"); // no error, output - Rahul Chabra
   * string
     * Remember strings are immutable in JS!!!!!!! I have made this silly mistake before too, if they were not then any hacker could alter them and change references causing security breaches.
     * There is practically no difference between single and double quotes in JS
-    * Backticks however allow us to define template strings with variables inside strings such as:
+    * Backticks (feature of ES6) however allow us to define template strings with variables inside strings such as:
     ```javascript
     const info = `${name} is ${age} years old`;
     ```
@@ -104,7 +108,7 @@ printName("Rahul", "Chabra", "Friend"); // no error, output - Rahul Chabra
 * objects - Can store collection of data and more complex entities
 * symbols - Are used to create unique identifiers for objects (probably not that important)
 
-### Difference between var, let and const
+### Difference between var, let and const - let and const are features of ES6
 * var
   * Var is either global scoped or function scoped, if declared outside function, it is global scoped, if declared inside function, it is function scoped and it will not be accessible outside that function
   * var can be used to redelcare the same variable!
@@ -316,7 +320,8 @@ Function.prototype.myBind = function(...args){
 
 ### Difference Between ES5 and ES6
 * ES5 was released in 2009 and ES6 in 2015
-* ES6 is a major improvement on ES5 with features such as classes, arrow functions, let, const, better performance
+* ES6 is a major improvement on ES5 with features such as:
+* classes, arrow functions, let, const, better performance
 
 ### Classes - This is an ES6 Feature
 ```javascript
