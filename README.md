@@ -215,7 +215,17 @@ const add = (a, b, c) => a+b+c
 // cs(2, 3)(4)
 
 ```
-* Another question related to currying
+* Another question related to currying - create a function "sum" which can be called sum(1)(2)(3)(4).....() to return the sum of all the numbers used as inputs
+```javascript
+const sum = (num1) => {
+	return (num2) => {
+		if(num2){
+			return sum(num1 + num2);
+		}
+		return num1;
+	}
+}
+```
 
 ### Hoisting
 * In hoisting, it appears that the interpretor moves the declarations of functions, classes and variables to the top of their scope before executing the code such that their value or declaration is accessible before the line at which they are defined.
