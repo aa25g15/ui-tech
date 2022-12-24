@@ -242,17 +242,33 @@ cs(1)(2)(3);
 ```
 * bind method:
 ```javascript
-const add = (a, b, c) => a+b+c
-
+// const add = (a, b, c) => a+b+c
 // Implement curriedSum such that all invokations to cs should return answer as 9
 // Gave a hint: fn.length gives no of arguments that function takes . eg: in our case add.length = 3
 // const cs = curriedSum(add);
 // cs(2)(3, 4) 
 // cs(2, 3, 4)
 // cs(2, 3)(4)
+// cs(2)(3)(4)
 
+const curry = (func) => {
+	return curried = (...args) => {
+  	if(args.length < func.length){
+    	return curried.bind(this, ...args);
+    }
+    func(...args);
+  }
+}
+
+const sum = (a,b,c) => console.log(a + b + c);
+
+const curriedSum = curry(sum);
+curriedSum(1)(5)(3); // 9
+curriedSum(1, 5)(3); // 9
+curriedSum(1)(5, 3); // 9
+curriedSum(1, 5, 3); // 9
 ```
-* Another question related to currying - create a function "sum" which can be called sum(1)(2)(3)(4).....() to return the sum of all the numbers used as inputs
+* Another question related to currying (asked in Amazon) - create a function "sum" which can be called sum(1)(2)(3)(4).....() to return the sum of all the numbers used as inputs
 ```javascript
 const sum = (num1) => {
 	return (num2) => {
@@ -339,6 +355,8 @@ const throttle = (func, time = 200) => { // ms
 ### The this Keyword
 
 ### Destructuring in JS
+
+### Microtasks/Macrotasks
 
 ### Polyfill for bind method
 ```javascript
