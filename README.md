@@ -7,6 +7,7 @@
 * Clickjacking
 * CSP - Content Security Policies
 * CORS - Cross Origin Resource Sharing
+* Auth
 
 ## Web and Browser Fundamentals
 ### Explain the entire process (what actually happens in backend) starting from sending request from client to server and then back to client.
