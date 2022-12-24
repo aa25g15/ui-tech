@@ -553,12 +553,82 @@ console.log(dog1.age); // 7
 console.log(dog1.#name); // Uncaught SyntaxError: Private field '#name' must be declared in an enclosing class"
 ```
 
+### Immediately Invoked Function Expressions (IIFE)
+
 ### Implement own eventmanager
 
 ### Implement own redux like lib
 
 ### Difference Between Arrow Functions and Normal Functions
-* The this keyword in an arrow function points to its lexical scope but in a normal function, it points to the function's object
+* The this keyword
+	* In regular functions, the behaviour of this keyword changes based on how the function is invoked
+	* Normal invocation - this points to the global scope
+	```javascript
+	function func(){
+		function func2(){
+		console.log(this); // Still points to window object only
+	  }
+	  func2();
+	}
+
+	func();
+	```
+	* Method invocation - this points to the object that owns the method
+	```javascript
+	const obj = {
+		printName: function(){
+			console.log(this); // points to obj object
+		}
+	}
+	```
+	* Invocation using apply or bind or call - this points to the context provided in apply, call or bind as is their purpose
+	* Using new keyword or as constructors - this points to the instance of the function created using new keyword
+	```javascript
+	function person(name){
+		this.name = name;
+		console.log(this);
+	}
+
+	const p1 = new person("Abhinav");
+	/*
+	Output:
+	{
+	  name: "Abhinav"
+	}
+	*/
+	```
+	* However in arrow functions, the this keyword will always point towards the lexical scope
+	```javascript
+	var name = "Abhinav";
+	const obj = {
+		name: "rahul",
+		printName: () => {
+			console.log(this.name); // Abhinav
+		},
+		printName2: function(){
+			console.log(this.name); // rahul
+    		}
+	}
+  
+	obj.printName(); // Abhinav
+	obj.printName2(); // rahul
+	```
+* arguments keyword
+	* In normal functions, arguments passed to the function are accessible using the arguments keyword
+	```javascript
+	function test(){
+		console.log(arguments[0]);
+		console.log(arguments[1]);
+	}
+	test(1, 2);
+	```
+	* However, much like this keyword, arguments keyword also points to the lexical scope in arrow functions
+* As constructors or using new keyword
+	* As this keyword in arrow functions points to the lexical scope, they cannot be used with new keyword or as contructors
+* Implicit return - Just a fancy way of saying that if the return is immediately followed by the curly braces, the curly braces can be omitted altogether and the function will return what is written
+```javascript
+const sum = (a,b,c) => a + b + c; // returns the sum
+```
 
 ### Difference between Typescript & Javascript
 * As the popularity of JS grew from client side to server side it could not fulfill the enterprise level requirement of OOPs
