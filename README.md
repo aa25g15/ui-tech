@@ -42,6 +42,12 @@
 		* Minimize main thread work
 		* Reduce JavaScript execution time
 		* Ensure text remains visible during webfont load
+	* First Input Delay (FID) - This refers to the delay between first input received by the browser and the actual time after which the browser is able to respond to the input. It is a measure of responsiveness of the site. After, FCP and before the main thread is idle (TTI point), if a user clicks or does some other such action, the main thread might be busy (it might be executing some JS files it just downloaded etc.), this might cause the browser to exhibit a delay in responding to the user action.
+		* Minimize main thread work
+		* Keep requests low and transfer sizes small
+		* Reduce JS execution time
+
+<img src="web-performance.png" alt="web performance" />
 
 ### Service workers and web workers
 
