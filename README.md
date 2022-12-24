@@ -367,6 +367,7 @@ const throttle = (func, time = 200) => { // ms
 
 ### Memoization
 * A technique used to store computed results in a cache (temporary data store such as a Map) so that they can be retrieved and returned instead of doing a fresh calculation everytime
+* Memoization can only be done on pure functions whose output depends only on the inputs and not on the "outside world". In other words, for the same inputs, the output will always be the same.
 ```javascript
 const memoize = (func) => {
 	const map = new Map();  // Cache
