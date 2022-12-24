@@ -39,11 +39,16 @@
 			* Browsers might not show any font until all font files are loaded, this can cause FLash of Invisible Text (FOIT), to prevent this add font-display: swap in your font-face or &display=swap if loading from a CDN such as google fonts. This will show a system font until your fonts load.
 		* Eliminate render blocking resources
 	* Speed Index - The speed at which above the fold content visually loads
+		* Minimize main thread work
+		* Reduce JavaScript execution time
+		* Ensure text remains visible during webfont load
 
 ### Service workers and web workers
 
 ## HTML
-### What is Charset Meta Tag?
+### Questions
+* What does DOCTYPE do?
+* What is Charset Meta Tag?
 
 ### Semantic HTML
 
