@@ -10,6 +10,10 @@
 
 ### Event Loop and How Promises and setTimeout are Queued
 
+### Web Performance
+
+### Service workers and web workers
+
 ## HTML
 ### What is Charset Meta Tag?
 
@@ -298,6 +302,41 @@ Function.prototype.myBind = function(...args){
     obj.apply(args[0], [...params, ...args2]);
   }
 }
+```
+
+### Difference Between ES5 and ES6
+* ES5 was released in 2009 and ES6 in 2015
+* ES6 is a major improvement on ES5 with features such as classes, arrow functions, let, const, better performance
+
+### Classes - This is an ES6 Feature
+```javascript
+class Dog {
+	#name; // private
+  age // public
+  
+  constructor(name, age){
+	  this.#name = name;
+    this.age = age;
+  }
+
+	printName = () => { // public method
+  	console.log(this.#getString());
+  }
+  
+  #getString = () => { // Private method
+  	return `${this.#name} is ${this.age} years old.`
+  }
+}
+
+const dog1 = new Dog("oreo", 7);
+const dog2 = new Dog("ramsy", 6);
+
+dog1.printName(); // oreo
+dog2.printName(); // ramsy
+
+console.log(dog1.age); // 7
+
+console.log(dog1.#name); // Uncaught SyntaxError: Private field '#name' must be declared in an enclosing class"
 ```
 
 ### Implement own eventmanager
