@@ -380,6 +380,87 @@ printName("Rahul", "Chabra", "Friend"); // no error, output - Rahul Chabra
   * You cannot access let and cost variables before they are declared, you will get ReferenceError
 
 ### Promises, callbacks, async, await
+* Promises are objects which represent the eventual success or failure of an asynchronous operation
+* Three states:
+	* Pending
+	* Fulfilled
+	* Rejected
+* Promises solve the issue of the callback hell which was created when multiple operations had to be done one after the other, several callbacks had to be sent inside nested functions which looks ugly and confusing
+```javascript
+doTask1(function(res1){
+	doTask2(res1, function(res2){
+		doTask3(res2, function(finalRes){
+			console.log(finalResult);
+		}, errorCallback)
+	}, errorCallback)
+}, errorCallback)
+```
+* Promises aim to solve this problem using promise chaining
+```javascript
+doTask1()
+.then((res1) => doTask2(res1))
+.then((res2) => doTask3(res2))
+.then((finalRes) => console.log(finalRes))
+.catch((error) => console.log(error));
+```
+* Remember to return the next promise from the callback else you will break the promise chain!
+* Remember promises are guaranteed to be asynchronous and their callbacks will only be called once the call stack is empty even when a callback is attached to an already resolved promise!
+```javascript
+Promise.resolve(3).then((res) => console.log(res));
+console.log(4);
+// Output - 4 3
+```
+* Remember that the rejection of a promise in the chain will go to the next catch handler in the chain
+* Always terminate your promise chain with a catch handler otherwise you will get unhandledRejection
+* You can also nest promises but this should be avoided unless there is good reason to do so, keep the promise chain flat!
+```javascript
+doTask1()
+.then((res) => 
+	doLessImportantTask(res)
+	.then((lessImpRes) => doMoreLessImportantTask(lessImpRes))
+	.catch((error) => console.log("Less important had error but it does not matter."))
+	// Remember the scope of a nested catch handler is always limited as is intentional here, it can only catch errors from these less important
+	// tasks, we do not want these less important tasks to fail the main chain
+)
+.then((res2) => doCriticalTask(res2))
+.catch((error) => console.log("Critical failure occured!"));
+```
+* Remember you can even continue the chain after a catch statement
+```javascript
+New Promise((resolve) => {
+	console.log("Initial")
+	resolve();
+})
+.then(res => {
+	throw new Error("Something went wrong");
+	console.log("Do this");
+})
+.catch((error) => console.log("Do this now"))
+.then(() => console.log("Do this no matter what happened before"))
+.catch((error) => console.log("Do this again"))
+	
+/*
+Output:
+Initial
+Do this now
+Do this no matter what happened before
+*/
+```
+* Async/Await syntax
+```javascript
+async function execute(initia̵lVal){
+	try {
+		const res1 = await doTask1(initia̵lVal);
+		const res2 = await doTask2(res1);
+		const finalResult = await doTask3(res2);
+		console.log(finalResult);
+	} catch(error){
+		console.log(error);
+	}
+}
+```
+* Promise callbacks are handled as a microtask whereas setTimeout() callbacks are handled as task queues.
+
 * How does javascript figures out that a promise is resolved?
 * Promise chaining
 * Implement Promise.all
