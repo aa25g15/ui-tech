@@ -154,13 +154,22 @@
   color: red;
 }
 ```
-* Element selector
+* Element or tag selector
 ```css
 button {
   color: red;
 }
 ```
-* Immediate child selectors
+* Child selectors
+```css
+.test > p {
+  color: red;
+}
+	
+.test:nth-child(2) { // also first-child and last-child, nth child is considered slow
+  color: red;
+}
+```
 * Selecting all nested children
 ```css
 .parent-class .child-class {
@@ -176,9 +185,112 @@ button {
 ```
 
 ### Specificity
+* a b c d (left overpowers right)
+	* a - inline styling, 0 or 1
+	* b - number of id selectors
+	* c - number of class, attribute and pseudo-class selectors
+	* d - number of element and pseudo-element selectors
+* If specificity is the same, the rule which appears more at the bottom is considered more specific
 
 ### Box Model
+* Box model is responsible for calulating width and height and collapsing of any borders or margins and how elements are positioned next to each other
+* A box with no width will take all horizontal space
+* width and height depend on the content
+* Default width and height only include content-box but with box-sizing: border-box this can be overridden to include padding and borders
 <img src="box-model.png" alt="box model" width="400"/>
+	
+### Floats
+* https://css-tricks.com/all-about-floats/
+	
+### Questions
+* What's the difference between "resetting" and "normalizing" CSS? Which would you choose, and why?
+	* Resetting - remove all default styles
+	* normalizing - keep some useful styles and even fixes known bugs for common browser dependencies
+* Describe z-index and how stacking context is formed.
+	* z-index stacks w.r.t parent not root
+	* B is on top of A, A and B are siblings, no way that a child of A can ever be on top of B
+	* Stacking contexts are independent and self-contained
+	* z-index only works on positioned elements (not static)
+* Describe Block Formatting Context (BFC) and how it works. - Need more clarity
+* What are the various clearing techniques and which is appropriate for what context?
+	* class:
+	```css
+	.clearfix::after{
+		content: '';
+		height: 0;
+		visibility: hidden;
+		display: block;
+		clear: both;
+	}
+	```
+	* empty div with style="clear: both;"
+	* using overflow: hidden or overflow: auto on parent
+* Explain CSS sprites, and how you would implement them on a page or site.
+	* Multiple images stitched into 1 and used with a class having background-image, background-position and background-size
+* How would you approach fixing browser-specific styling issues?
+	* Use a UI library like Bootstrap which already handle these issues
+	* Use reset or normalize css
+	* use autoprefixer for auto prefixing of vendor prefixes
+	* Use caniuse for compatiblity check
+	* Load a separate stylesheet for that particular browser
+	* Use a preprocessor
+* How do you serve your pages for feature-constrained browsers? What techniques/processes do you use?
+	* Graceful degradation - Develop for modern browsers, make sure backward compatibility is there
+	* Progressive development - Develop for basic features, add features as they are supported
+	* Use caniuse
+	* Use feature checking with modernizr
+	* Use @support css rule to check for css feature support
+* What are the different ways to visually hide content (and make it available only for screen readers)
+	* Position it outside screen using absolute - Method of choice
+	* Make its height and width 0
+	* Use W3C specifications
+	* Use meta tags
+	* Use text-indent (only works for text inside blocks) - Performance considerations, use text-indent: 100%;
+* Can you give an example of an @media property other than screen?
+	* all
+	* print
+	* speech
+	* screen
+* What are some of the "gotchas" for writing efficient CSS?
+	* Do not use tag selectors or global selectors
+	* Keep the selector chain short
+	* Use specific classes for all elements and if there is heirarchy, embed it in the classname according to the Block Element Modifier Methodology
+	* Avoid rules that change layout or trigger reflow or repaint
+	* Do not use !important
+	* DRY principle
+	* Use multiple stylesheets
+	* Be consistent with naming and reusing classes
+	* Reuse classes in the class attribute
+	* Use shorthands
+	* Avoid unnecessary CSS
+	* Do not position elements until absolutely needed to
+* Can use @font-face for custom fonts, remember to use font-display: swap;
+* Explain how a browser determines what elements match a CSS selector
+	* Browser will match elements from right to left of the selector chain, they will shortlist all elements with the rightmost key selector and then move to parents to determine if the element matches the entire selector chain
+	* For example "p span", first browser will collect all span elements then look if each span has a p ancestor up until root
+	* That is why avoid global or tag selectors
+* pseudo-elements - Keywords addd after selectors to style a particular part of an element, eg - ::first-line, ::first-letter, can even be used to add elements to the DOM using ::after and ::before, tooltip arrows use these only
+* pseudo-classes - Used to style a particular state of an element, :hover, :active, :visited etc.
+* What is the CSS display property and can you give a few examples of its use?
+	* none (removes from DOM), block, inline-block, inline, flex, grid, table, table-cell, table-row, list-item
+* What's the difference between inline and inline-block and block?
+	* inline and inline-block and height and width based on content
+	* block has width of entire parent minus padding
+	* block and inline-block allow height and width to be defined, inline doesnt
+	* block and inline-block respect all margins, paddings, inline only respects horizontal
+	* Can be aligned with vertical-align? - yes for both inline ones and no for block
+* Can you explain the difference between coding a website to be responsive versus using a mobile-first strategy?
+	* Both are related
+	* Mobile-first is more performant for mobiles
+* How is responsive design different from adaptive design?
+	* Responsive is one ball resizes for different hoops - Media Queries to adjust to widths
+	* Adaptive is different balls for different hoops - Client sniffing and serving different content for different clients
+* Have you ever worked with retina graphics? If so, when and what techniques did you use?
+	* Marketing name for displays with pixel density greater than 1
+	* Use img srcset and sizes attributes
+* Is there any reason you'd want to use translate() instead of absolute positioning, or vice-versa? And why?
+	* translate does not cause reflow or repaint but causes composition, faster paint and better performance than absolute positioning which causes reflow
+	* Absolute uses CPU, translate uses GPU
 
 ## JavaScript
 * Remember JS is a synchronous single-threaded language but the browser event-loop and promises makes it exhibit async functionality
