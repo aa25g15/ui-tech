@@ -2,6 +2,7 @@
 
 ## Resources
 * https://alphaayush.notion.site/alphaayush/2e13395deff94a428d45b3aa88dc7ee7?v=06b5c5617b8442bc878bd210257786ad
+* https://github.com/lydiahallie/javascript-questions/blob/master/README.md
 
 ## Frontend Security
 * SSL - Secure Sockets Layer - An encryption technique used to safeguard the communication between the server and the client, without it, sensitive information is subject to theft. This is pretty much a standard requirement now.
@@ -58,6 +59,17 @@
 <img src="web-performance.png" alt="web performance" />
 
 ### Service workers and web workers
+
+## REST API Methods
+* GET - Idempotent, safe, no body, used only to retrieve information from the server
+* POST - Non-idempotent, unsafe, has body, used to create new entry to the DB, or change in state or cause side effects on the server
+* PUT - Idempotent, unsafe, has body, used to replace all target resource values with the data in the request body
+* DELETE - Idempotent, unsafe, used to delete a particular resource from DB
+* OPTIONS - Idempotent, safe, is used to check permissible options for communication with the server, client can mention a URL or use * to refer to the entire server
+* PATCH - Non-idempotent, unsafe, is used to carry out partial modifications to a resource
+* Idempotent means that no matter how many times a request is carried out, there are no additional side effects than which occured the first time
+* PATCH is not always idempotent, however, it can be but PUT is always idempotent, PATCH has instructions to modify a resource whereas PUT is the whole modification itself
+* PUT is idempotent but POST is not. Calling POST multiple times can have multiple side-effects like duplicate entries getting created in the DB.
 
 ## HTML
 ### Questions
