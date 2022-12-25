@@ -1,5 +1,8 @@
 # UI Tech
 
+## Resources
+* https://alphaayush.notion.site/alphaayush/2e13395deff94a428d45b3aa88dc7ee7?v=06b5c5617b8442bc878bd210257786ad
+
 ## Frontend Security
 * SSL - Secure Sockets Layer - An encryption technique used to safeguard the communication between the server and the client, without it, sensitive information is subject to theft. This is pretty much a standard requirement now.
 * Cross Site Scripting (XSS)
@@ -59,11 +62,76 @@
 ## HTML
 ### Questions
 * What does DOCTYPE do?
+	* DOCTYPE -> Document Type Definition (DTD)
+	* Defines the structure rules of the document
+	* Browsers trigger no-quirks mode for particular DTD
+	* For HTML5:
+	```html
+	<!DOCTYPE html>
+	```
 * What is Charset Meta Tag?
+* Serve page in multiple languages
+	* lang attribute in html tag
+	* hreflang in link to tell search engines that page exists in multiple languages
+	* i18n placeholders
+	* Allow to change language easily
+	* Dates and time could change
+	* Colors could change
+	* Text direction and even width could change
+	* May need to swap images with embedded text
+	* Accept-Language header is sent to server
+	* Show locale in url
+	* Do not concatenate translated strings as this may not be gramatically correct
+* data- attributes
+	* Can be changes easily in inspect
+	* Available in dataset
+	* Better to keep data in JS binded using framework or library
+	* Could be useful for testing libs
+* Building blocks of HTML5
+	* Audio/Video
+	* 2D/3D graphics
+	* Better performance
+	* Better ways of connecting with the server
+	* More semantic elements
+	* More web APIs
+	* Offline and storage
+	* More verbose styling and themes
+	* Device access
+* Cookie, sessionStorage and localStorage
+	* Session, local - 5mbs, not sent to server
+	* Cookie - 4kb, sent to server
+	* You know the rest
+* Describe the difference between <script>, <script async> and <script defer>
+	* script - block render
+	* async - loads script in parallel, executes immediately
+	* defer - loads script in parallel, executes after HTML parsing in order of appearance
+* Why is it generally a good idea to position CSS <link>s between <head></head> and JS <script>s just before </body>? Do you know any exceptions?
+	* HTML -> DOM and CSS -> CSSOM
+	* CSSOM generation is delayed if stylesheets are not in head
+* Progressive rendering - Techniques to improve perceived load time
+	* Lazy loading images
+	* Prioritising content above fold
+	* Using onload event or DOMContentLoaded event to load below fold content after above fold is loaded
+	* Async HTML fragments - Flushing parts of the HTML to the browser as the page is constructed on the back end
+* srcset attribute in images
+	* To serve different images for different device widths and pixel density
+	```html
+	<img srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 2000w" src="..." alt="">
+	```
+	* Pixel density of retina displays could be 2
+	* Suppose device width is 320px
+		* 500 / 320 = 1.5625
+		* 1000 / 320 = 3.125
+		* 2000 / 320 = 6.25
+	* For normal display small.jps is chosen, for retina display (2x), medium.jpg is chosen
 
 ### Semantic HTML
+* Semantic HTML is using elements which clearly indicate the purpose of the content within, for example, <article>, <section>, <heading> etc.
+* It makes it easier for assistive technologies to understand your page
 
 ### Accessibility
+* a11y rules for accessibility
+* In my experience, using proper aria-label attributes for buttons, using proper alt text for images, using semantic HTML, improves accessibility
 
 ## CSS
 ### Position Property
@@ -400,8 +468,28 @@ console.log(memoizedSum(9, 312, 45)); // From Cache
 ```
 
 ### The this Keyword
+* this keyword points to the current scope of execution and is different for normal and arrow functions, see the differences in both in another section
 
 ### Destructuring in JS
+* Desctructuring allows us to easily extract parts of arrays or objects and assign them to new variables
+```javascript
+const [firstName, lastName] = ["Abhinav", "Aggarwal"]; // Array desctructuring
+console.log(firstName); // Abhinav
+console.log(lastName); // Aggarwal
+
+const obj = {
+	address: {
+		city: "Amritsar",
+		state: "Punjab"
+	},
+	name: "Rahul",
+	age: 26
+}
+
+const {age, name} = obj; // Object desctructuring
+console.log(age); // 26
+console.log(name); // Rahul
+```
 
 ### Microtasks/Macrotasks
 
