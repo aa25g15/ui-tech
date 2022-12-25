@@ -17,6 +17,33 @@
 ### Explain the entire process (what actually happens in backend) starting from sending request from client to server and then back to client.
 * https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work
 
+### Event Capture, Target, Bubbling, Delegation
+* When you click for example, the browser does not straight away know which element received the event
+* It knows that a click event occured, so it starts from the root, all the way down to the element that received the event - This is called event capturing phase
+* The target element is isolated and the browser checks if an event handler is registered with it - This is called the target phase
+* If an event handler is registered, the event starts to bubble from the target all the way up to the root and all parental event listeners are also triggered unless the event propagation is manually stopped
+* This bubbling of the events up the DOM can be used to implement a technique called delegation, in delegation a common parent is delegated to deal with events triggered on the children, for example:
+* Imagine you have several buttons inside a div and you want to log the button text when each button is clicked
+* One way is to attach a click event listener on each button, this will lead to several event handlers doing the same thing!!
+* Instead we can add a single event listener to the parent like this:
+```html
+<div class="buttons-container">
+	<button>Button 1</button>
+	<button>Button 2</button>
+	<button>Button 3</button>
+	<button>Button 4</button>
+</div>
+```
+```javascript
+const container = document.querySelector(".buttons-container");
+container.addEventListener("click", (event) => {
+	if(event.target.tagName === "BUTTON"){
+		console.log(event.target.innerText);
+	}
+});
+```
+* Now a single event listener handles all the buttons!!! Thus, event delegation is an efficient way of handling similar events
+
 ### Event Loop and How Promises and setTimeout are Queued
 
 ### Web Performance
