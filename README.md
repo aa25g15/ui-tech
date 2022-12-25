@@ -460,9 +460,68 @@ async function execute(initia̵lVal){
 }
 ```
 * Promise callbacks are handled as a microtask whereas setTimeout() callbacks are handled as task queues.
+* 4 Concurrency methods
+	* Promise.all - Fulfills when all fulfill, rejects if any 1 rejects
+	* Promise.allSettled - Settles when all settle whether any fulfills or rejects
+	* Promise.any - Fulfills if any 1 fulfills, rejects if all reject
+	* Promise.race - Settles when any 1 first settles whether it settles as fulfilled or rejected
+
+### Polyfill for Promise.all
+```javascript
+function promiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    const resArray = [];
+    let settled = 0;
+    for (let i = 0; i < promises.length; i++) {
+      Promise.resolve(promises[i])
+        .then(res => {
+          resArray[i] = res;
+          settled++;
+          if (settled === promises.length) resolve(resArray);
+        })
+        .catch(error => reject(error));
+    }
+  });
+}
+```
+	
+### Polyfill for Promise.allSettled
+```javascript
+function promiseAllSettled(promises) {
+  return new Promise((resolve) => {
+    const resArray = [];
+    let settled = 0;
+    for (let i = 0; i < promises.length; i++) {
+      Promise.resolve(promises[i])
+        .then(res => {
+          resArray[i] = res;
+          settled++;
+          if (settled === promises.length) resolve(resArray);
+        })
+        .catch(error => {
+          resArray[i] = error;
+          settled++;
+          if (settled === promises.length) resolve(resArray);
+        });
+    }
+  });
+}
+```
+	
+### pollyfill for Promise.race
+```javascript
+function racePromises(promises) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; i++) {
+      Promise.resolve(promises[i])
+        .then(res => resolve(res))
+        .catch(error => reject(error));
+    }
+  });
+}
+```
 
 * How does javascript figures out that a promise is resolved?
-* Promise chaining
 * Implement Promise.all
 * Implement an array of promises in parallel
 * Implement an array of promises one after the other
