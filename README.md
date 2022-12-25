@@ -882,6 +882,17 @@ Array.prototype.myFind = function(func){
 	return res;
 }
 ```
+				      
+### Snake Case to Camel Case
+```javascript
+function convertSnakeCaseToCamel(s){
+	const arr = s.split("-");
+	for(let i = 1; i < arr.length; i++){
+  	arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+  }
+  return arr.join("");
+}
+```
 
 ### Difference Between ES5 and ES6
 * ES5 was released in 2009 and ES6 in 2015
