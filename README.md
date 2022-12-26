@@ -45,12 +45,15 @@ container.addEventListener("click", (event) => {
 * Now a single event listener handles all the buttons!!! Thus, event delegation is an efficient way of handling similar events
 
 ### Event Loop and How Promises and setTimeout are Queued
+<img src="event-loop.png" alt="event loop" />
+
 * JS is a synchronous, single-threaded language which means it can only do 1 thing at a time, so how can it perform concurrent async operations?
 * The answer is the Event Loop and Web APIs (in browsers) or C++ APIs in Node which handle concurrent operations in separate threads
 * The JS runtime environment has the call stack and any function/method called is pushed on to the call stack and popped after it has been executed
 * The JS V8 engine is unable to perform any other operation while the call stack is executing a function
 * This means that if we add a lot of slow code to the call stack (slow code could even be something like a while loop from 0 to 100000), the UI will essentially freeze and our clicks and actions will seem to not work, then when the call stack becomes empty again, the browser will execute all our clicks or actions which earlier did not seem to respond!
 * Imagine we are getting data from the network which is a slow operation:
+
 ```javascript
 getSyncData1(); // 5 seconds
 getSyncData2(); // 3 seconds
@@ -60,6 +63,7 @@ getSyncData3(); // 10 seconds
 // Even the render will not occur, cause even the render function needs an empty call stack to work, remember usual FPS is 60, so browser needs to
 // paint every 16ms approximately for a smooth UI and smooth animation experience, otherwise the user will experience jank
 ```
+
 * Remember that APIs like setTimeout, ajax, DOM etc. are not part of the V8 Engine but they are provided by the browser and run on other threads, this enables concurrency
 * The browser maintains 2 queues - Microtask queue and Macrotask queue
 	* Microtask queue - Promise and mutation observer callbacks, even the fetch API since it returns a promise
@@ -262,7 +266,12 @@ new Promise(resolve => resolve(6)).then(res => console.log(res));
 	* For normal display small.jps is chosen, for retina display (2x), medium.jpg is chosen
 
 ### Semantic HTML
-* Semantic HTML is using elements which clearly indicate the purpose of the content within, for example, <article>, <section>, <heading> etc.
+* Semantic HTML is using elements which clearly indicate the purpose of the content within, for example:
+```html
+<article>
+<section>
+<heading>
+```
 * It makes it easier for assistive technologies to understand your page
 
 ### Accessibility
