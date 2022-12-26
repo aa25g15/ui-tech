@@ -45,6 +45,103 @@ container.addEventListener("click", (event) => {
 * Now a single event listener handles all the buttons!!! Thus, event delegation is an efficient way of handling similar events
 
 ### Event Loop and How Promises and setTimeout are Queued
+* JS is a synchronous, single-threaded language which means it can only do 1 thing at a time, so how can it perform concurrent async operations?
+* The answer is the Event Loop and Web APIs (in browsers) or C++ APIs in Node which handle concurrent operations in separate threads
+* The JS runtime environment has the call stack and any function/method called is pushed on to the call stack and popped after it has been executed
+* The JS V8 engine is unable to perform any other operation while the call stack is executing a function
+* This means that if we add a lot of slow code to the call stack (slow code could even be something like a while loop from 0 to 100000), the UI will essentially freeze and our clicks and actions will seem to not work, then when the call stack becomes empty again, the browser will execute all our clicks or actions which earlier did not seem to respond!
+* Imagine we are getting data from the network which is a slow operation:
+```javascript
+getSyncData1(); // 5 seconds
+getSyncData2(); // 3 seconds
+getSyncData3(); // 10 seconds
+
+// If this was done synchronously, the call stack would be busy for 18 seconds!!!! All inputs/clicks/actions will seem like frozen and delayed
+// Even the render will not occur, cause even the render function needs an empty call stack to work, remember usual FPS is 60, so browser needs to
+// paint every 16ms approximately for a smooth UI and smooth animation experience, otherwise the user will experience jank
+```
+* Remember that APIs like setTimeout, ajax, DOM etc. are not part of the V8 Engine but they are provided by the browser and run on other threads, this enables concurrency
+* The browser maintains 2 queues - Microtask queue and Macrotask queue
+	* Microtask queue - Promise and mutation observer callbacks, even the fetch API since it returns a promise
+	* Macrotask queue - Browser API callbacks such as DOM event handlers, setTimeout, ajax etc.
+* The event loop is responsible to check the call stack, when it is empty, it will dequeue and push all microtasks to the call stack first since they have higher priority and then push macrotasks onto the call stack
+* In this way, every loop of the event loop a callback (micro or macro if micro are finished) is pushed to the stack and executed
+* In this way, JS is non-blocking and this leads to smooth UI experiences
+* If we have slow synchronous code too, for example:
+```javascript
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
+for(let i = 0; i < 10; i++){
+	console.log("Processing")
+	sleep(1000);
+}
+```
+* It is better to create an async version of it and utilise the non-blocking power of the Event Loop, this will not block the render() and will not lead to jank or low responsiveness, remember that render() is not blocked cause it is given priority, so between event loop iterations, it can be called when the stack is momentarily empty
+```javascript
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
+for(let i = 0; i < 10; i++){
+	// This will push the slow sync callback to the macrotask queue
+	setTimeout(() => {
+		console.log("Processing");
+		sleep(1000);
+	}, 0);
+}
+```
+* Full fledged effect of the Event Loop and the difference between micro and macro tasks can be understood here:
+```javascript
+setTimeout(() => {
+	console.log(1);
+}, 0)
+
+new Promise(resolve => resolve(2)).then(res => console.log(res));
+
+new Promise(resolve => resolve(3)).then(res => console.log(res));
+
+setTimeout(() => {
+	console.log(4);
+}, 0)
+
+new Promise(resolve => resolve(5)).then(res => setTimeout(() => console.log(res), 0));
+
+new Promise(resolve => resolve(6)).then(res => console.log(res));
+
+/*
+	Output - 2 3 6 1 4 5
+  
+  Explanation:
+	Macrotask Queue - log(1), log(4)
+  Microtask Queue - log(2), log(3), 
+  callback with setTimeout for log(5), log(6)
+  
+  Now the event loop in 1 cycle tries to finish all microtasks and 
+  then takes 1 macrotask and adds to callstack when it is empty
+  
+  After finishing all microtasks:
+	Output - 2 3 6
+  Note that the third callback is executed and its result was
+  to add log(5) with a setTimeout, this setTimeout is now 
+  pushed to macrotask queue
+  
+  Final macrotask queue - log(1), log(2), log(5)
+  Now microtask queue is empty, event loop will take each log
+  function in macrotask queue and execute it in each loop
+  
+  Final console output - 2 3 6 1 4 5
+*/
+```
 
 ### Web Performance
 * Key Web Performance Metrics (Can calculate them from tools such as lighthouse)
