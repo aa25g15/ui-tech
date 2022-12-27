@@ -1071,6 +1071,54 @@ console.log(dog1.age); // 7
 
 console.log(dog1.#name); // Uncaught SyntaxError: Private field '#name' must be declared in an enclosing class"
 ```
+	
+### Polyfill for Executing Promises in Series
+```javascript
+async function executeSeries(promises) {
+  const res = [];
+  for (let i = 0; i < promises.length; i++) {
+    res.push(await Promise.resolve(promises[i]));
+  }
+  return res;
+}
+```
+
+### ES6 Modules
+* Modules can be used to split code in manageable and scalable files which can be imported into each other
+* All modern browsers support ES6 modules right out of the box
+```javascript
+// person.js
+export default class Person {
+	constructor(name, age){
+		this.name = name;
+	      	this.age = age;
+	}
+}
+
+export const printInfo = (person) => {
+	console.log(`${person.name} is ${person.age} years old`);
+}
+```
+```javascript
+// index.js
+import Person, { printInfo as info } from "./person.js"
+
+const p1 = new Person("Abhinav", 26);
+info(p1); // Output - Abhinav is 26 years old
+```
+```html
+<head>
+	<script type="module" src="./index.js"></script>
+	<script type="module" src="./person.js"></script>
+<head>
+```
+* Note you have to tell the browser that the files are modules
+* The order does not matter, even duplicate tags are ignored, the files will only be loaded once they are imported
+* type="module" automatically makes the scripts deferred, so it non-blocking
+* You can even dynamically import
+```javascript
+const helloModule = await import("./hello.js");
+```
 
 ### Immediately Invoked Function Expressions (IIFE)
 
