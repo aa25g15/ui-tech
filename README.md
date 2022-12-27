@@ -17,6 +17,28 @@
 ### Explain the entire process (what actually happens in backend) starting from sending request from client to server and then back to client.
 * https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work
 
+### Caching
+* Caching is storing of information in either the browser, proxy, reverse proxy (closer to server) or server itself using tools like Redis
+	* Reduces latency
+	* Reduces load on server
+	* Reduces bandwidth
+	* 
+* Cache validation is validating the cache with the server and updating stale values and invalidation is removing of all stale values from the cache
+* Caching is controlled using Cache-Control header
+* Cache-control has following comma separated options
+	* private means that the resource is specific to user and shall be cached on client only
+	* public means that resource is shared between several users and can be cached on proxies
+	* max-age=600 means the time the cached value is valid, s-max-age=600 is same but is for proxies
+	* no-store means do not cache
+	* no-cache means can cache but need to validate with server everytime before serving
+	* must-revalidate - Sometimes if the client is unable to connect to server to update cached values, it might serve stale values, must-validate prevents that behaviour and directs the client to only serve updated values
+	* proxy-validate - same as must-revalidate but for proxies
+* Cache validation is carried out using Etags or entity tags and/or Last-Modified, the client will send these to server which shall return either 304 (not modified) or return a fresh response with new Etags and Last-Modifies values
+* Usual caching strategies
+	* light caching (private, no-cache) - for HTML files for example, it says, cache them but always validate with server if new files are available
+	* aggressive caching (public, max-age=31556926) - for CSS, JS and Images - Keep cached for 1 year
+	* You might have different names for JS files for example created by your bundler, when the files change during new deployment, fresh files will automatically be requested and further cached
+
 ### Event Capture, Target, Bubbling, Delegation
 * When you click for example, the browser does not straight away know which element received the event
 * It knows that a click event occured, so it starts from the root, all the way down to the element that received the event - This is called event capturing phase
