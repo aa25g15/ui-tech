@@ -17,12 +17,36 @@
 ### Explain the entire process (what actually happens in backend) starting from sending request from client to server and then back to client.
 * https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work
 
+### Critical Rendering Path
+* HTML Parsing and creation of the DOM
+	* HTML File received by the browser
+	* Parsing begins, images and CSS files encountered do not stop parsing
+	* JS files without async, defer will block rendering
+	* Preloader will scan for assets like images, css files which are important to load while the HTML is still being parsed
+* Creation of the CSSOM
+	* Creation of CSSOM is very very fast
+	* Usually it takes longer for a single DNS lookup than creating the CSSOM
+	* CSSOM is like the DOM (tree structure) but both are mutually independent
+	* Browser will recursively create the CSSOM cascading from the most general styles to more specific styles
+* Creation of the Render Tree
+	* DOM and CSSOM are used to create the Render Tree
+	* Render tree has all the nodes which will actually be shown, it will skip out nodes such as head or with display none but visibility hidden will still be there 
+	* Render tree nodes has the nodes and their computed styles but not their actual size and location on the screen
+* Layout
+	* This step involves using the Render tree and actually calculating the size and position of each node on the screen
+	* Subsequent layout calculations are called reflows, reflow could be for the whole document or some nodes
+	* Box model is used with screen size information to calculate sizes and positions
+* Paint
+	* The computed sizes and positions are now actually painted on the screen
+	* This step must happen really fast
+	* The browser must do all the reflow and repainting within 16ms (60 FPS) for a smooth experience otherwise there will be jank
+	* Composition is used to create layers which use the GPU to make the painting process faster
+
 ### Caching
 * Caching is storing of information in either the browser, proxy, reverse proxy (closer to server) or server itself using tools like Redis
 	* Reduces latency
 	* Reduces load on server
 	* Reduces bandwidth
-	* 
 * Cache validation is validating the cache with the server and updating stale values and invalidation is removing of all stale values from the cache
 * Caching is controlled using Cache-Control header
 * Cache-control has following comma separated options
